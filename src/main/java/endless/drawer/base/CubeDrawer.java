@@ -6,6 +6,7 @@ import com.jogamp.opengl.glu.GLU;
 import endless.canvas.GL2CanvasFactory;
 import endless.drawer.animator.BasicAnimator;
 import endless.frame.BasicFrame;
+import endless.util.ListBuilder;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -126,6 +127,7 @@ public class CubeDrawer implements GLEventListener{
         BasicAnimator animator = new BasicAnimator(canvas, 1000);
         canvas.addKeyListener(new KeyListener());
         animator.start();
-        JFrame frame = new BasicFrame("endless", canvas);
+        JFrame frame = new BasicFrame("endless",
+                new ListBuilder<GLCanvas>().instance().add(canvas).list());
     }
 }

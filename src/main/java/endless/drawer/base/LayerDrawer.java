@@ -9,6 +9,7 @@ import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 import endless.canvas.GL2CanvasFactory;
 import endless.frame.BasicFrame;
+import endless.util.ListBuilder;
 
 import javax.swing.*;
 import java.io.File;
@@ -31,6 +32,9 @@ public class LayerDrawer implements GLEventListener{
         {
             e.printStackTrace();
         }
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
+        gl.glLoadIdentity();
+        glu.gluLookAt(0,1,0,0,0,0,0,0,1);
     }
 
     public void dispose(GLAutoDrawable glAutoDrawable) {
@@ -40,13 +44,12 @@ public class LayerDrawer implements GLEventListener{
     public void display(GLAutoDrawable glAutoDrawable) {
         final GL2 gl = glAutoDrawable.getGL().getGL2();
         gl.glClear (GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT );
-        gl.glLoadIdentity();
         gl.glBindTexture(GL2.GL_TEXTURE_2D, mapTexture);
         gl.glBegin( GL2.GL_QUADS );
-        gl.glTexCoord2f(0f,1f);gl.glVertex3f(-0.5f,0.5f,0f);
-        gl.glTexCoord2f(1f,1f);gl.glVertex3f(0.5f,0.5f,0f);
-        gl.glTexCoord2f(1f,0f);gl.glVertex3f(0.5f,-0.5f,0f);
-        gl.glTexCoord2f(0f,0f);gl.glVertex3f(-0.5f,-0.5f,0f);
+        gl.glTexCoord2f(0f,1f);gl.glVertex3f(-1f,0f,1f);
+        gl.glTexCoord2f(1f,1f);gl.glVertex3f(1f,0f,1f);
+        gl.glTexCoord2f(1f,0f);gl.glVertex3f(1f,0f,-1f);
+        gl.glTexCoord2f(0f,0f);gl.glVertex3f(-1f,0f,-1f);
         gl.glEnd();
         gl.glFlush();
     }
@@ -63,14 +66,13 @@ public class LayerDrawer implements GLEventListener{
         //transforming projection matrix
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(45.0f, h, 1.0, 20.0);
-//        //transforming model view gl.glLoadIdentity();
-//        gl.glMatrixMode(GL2.GL_MODELVIEW);
-//        gl.glLoadIdentity();
+        glu.gluPerspective(45.0f, h, 1.0, 100.0);
     }
 
     public static void main(String args[]){
-        GLCanvas canvas = new GL2CanvasFactory().getCanvas(400,400,new LayerDrawer());
-        JFrame frame = new BasicFrame("endless", canvas);
+        GLCanvas canvas1 = new GL2CanvasFactory().getCanvas(400,400,new LayerDrawer());
+        GLCanvas canvas2 = new GL2CanvasFactory().getCanvas(400,400,new CubeDrawer(0,0,0));
+        JFrame frame = new BasicFrame("endless",
+                new ListBuilder<GLCanvas>().instance().add(canvas1).add(canvas2).list());
     }
 }
