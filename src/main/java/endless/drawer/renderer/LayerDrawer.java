@@ -1,17 +1,13 @@
-package endless.drawer.base;
+package endless.drawer.renderer;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
-import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
-import endless.canvas.GL2CanvasFactory;
-import endless.frame.BasicFrame;
-import endless.util.ListBuilder;
+import endless.drawer.base.BasicDrawer;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -44,13 +40,7 @@ public class LayerDrawer implements GLEventListener{
     public void display(GLAutoDrawable glAutoDrawable) {
         final GL2 gl = glAutoDrawable.getGL().getGL2();
         gl.glClear (GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT );
-        gl.glBindTexture(GL2.GL_TEXTURE_2D, mapTexture);
-        gl.glBegin( GL2.GL_QUADS );
-        gl.glTexCoord2f(0f,1f);gl.glVertex3f(-1f,0f,1f);
-        gl.glTexCoord2f(1f,1f);gl.glVertex3f(1f,0f,1f);
-        gl.glTexCoord2f(1f,0f);gl.glVertex3f(1f,0f,-1f);
-        gl.glTexCoord2f(0f,0f);gl.glVertex3f(-1f,0f,-1f);
-        gl.glEnd();
+        BasicDrawer.drawImage(gl,1f,1f,mapTexture);
         gl.glFlush();
     }
 
@@ -67,12 +57,5 @@ public class LayerDrawer implements GLEventListener{
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
         glu.gluPerspective(45.0f, h, 1.0, 100.0);
-    }
-
-    public static void main(String args[]){
-        GLCanvas canvas1 = new GL2CanvasFactory().getCanvas(400,400,new LayerDrawer());
-        GLCanvas canvas2 = new GL2CanvasFactory().getCanvas(400,400,new CubeDrawer(0,0,0));
-        JFrame frame = new BasicFrame("endless",
-                new ListBuilder<GLCanvas>().instance().add(canvas1).add(canvas2).list());
     }
 }
