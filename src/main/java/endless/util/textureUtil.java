@@ -13,7 +13,7 @@ public class textureUtil {
     public static int getTexture(GL2 gl, String fileName){
         try
         {
-            File im = new File("img\\map.jpg");
+            File im = new File(fileName);
             Texture t = TextureIO.newTexture(im, true);
             return t.getTextureObject(gl);
         }
