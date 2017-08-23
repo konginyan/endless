@@ -1,15 +1,12 @@
 package endless.drawer.attrs;
 
-public class Location {
-
+public class Point {
     private float x;
     private float y;
-    private float z;
 
-    public Location(float x, float y, float z) {
+    public Point(float x, float y) {
         this.x = x;
         this.y = y;
-        this.z = z;
     }
 
     public float getX() {
@@ -26,18 +23,5 @@ public class Location {
 
     public void setY(float y) {
         this.y = y;
-    }
-
-    public float getZ() {
-        return z;
-    }
-
-    public void setZ(float z) {
-        this.z = z;
-    }
-
-    @Override
-    public String toString() {
-        return "x: "+getX()+", y: "+getY()+", z: "+getZ();
     }
 }

@@ -43,6 +43,10 @@ public class Drawer3D implements Drawer{
         after(gl);
     }
 
+    public void drawCube(GL2 gl, float x, float y, float z, float len){
+        drawCube(gl,x,y,z,len,len,len);
+    }
+
     public void drawCube(GL2 gl, float len){
         drawCube(gl,0,0,0,len,len,len);
     }

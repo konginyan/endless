@@ -18,8 +18,8 @@ public class GL2CanvasFactory{
         GLCanvas canvas = new GLCanvas(capabilities);
         canvas.setSize(width,height);
         canvas.addGLEventListener(drawer);
-        if(drawer.keylisten()!=null)
-            canvas.addKeyListener(drawer.keylisten());
+        canvas.addKeyListener(drawer);
+        canvas.addMouseListener(drawer);
         return canvas;
     }
 }

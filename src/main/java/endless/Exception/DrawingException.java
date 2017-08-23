@@ -7,7 +7,7 @@ public class DrawingException extends RuntimeException {
     }
 
     @Override
-    public String getMessage() {
-        return "渲染出现错误: "+super.getMessage();
+    public String getLocalizedMessage() {
+        return "渲染出现错误: "+super.getLocalizedMessage();
     }
 }
