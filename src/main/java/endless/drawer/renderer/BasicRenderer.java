@@ -6,6 +6,7 @@ import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
 import endless.canvas.GL2CanvasFactory;
+import endless.client.Client;
 import endless.drawer.animator.BasicAnimator;
 import endless.drawer.attrs.*;
 import endless.drawer.base.Camera;
@@ -13,6 +14,7 @@ import endless.drawer.base.Drawer2D;
 import endless.drawer.base.Drawer3D;
 import endless.frame.BasicFrame;
 import endless.listener.KeyAndMouseListener;
+import endless.server.Eserver;
 import endless.util.ListBuilder;
 import endless.util.textureUtil;
 
@@ -139,5 +141,6 @@ public class BasicRenderer extends KeyAndMouseListener implements GLEventListene
         BasicAnimator animator = new BasicAnimator(canvas2, 100);
         JFrame frame = new BasicFrame("endless",
                 new ListBuilder<GLCanvas>().instance().add(canvas2).list());
+        new Client().start(Eserver.HOST,Eserver.PORT);
     }
 }

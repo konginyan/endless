@@ -8,7 +8,7 @@ public class ListBuilder<T> {
     private List<T> list;
 
     public ListBuilder<T> instance(){
-        list = new ArrayList<>();
+        list = new ArrayList<T>();
         return this;
     }
 
